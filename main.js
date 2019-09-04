@@ -63,24 +63,41 @@ const pies = [
   const buildCard = (arr) => {
     let domString = '<div class="row">';
     for (let i = 0; i < arr.length; i++) {
-        const currentPie = arr[i];
+        const current = arr[i];
         domString +=
         // <h1>${currentPie.name}</h1>
         `
         <div class="col-3">
         <div class="card">
-            <img src="${currentPie.imageUrl}" class="card-img-top" alt="...">
+            <img src="${current.imageUrl}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">${currentPie.name}</h5>
-            <p class="card-text">${currentPie.instructor} , ${currentPie.iceCream}</p>
+            <h5 class="card-title">${current.name}</h5>
+            <p class="card-text">${current.instructor} , ${current.iceCream}</p>
         </div>
         </div>
         </div>
         `;
     }
     domString += '</div>';
-
-    printToDom('pie-zone', domString);
-
+    printToDom('print-zone', domString);
   };
- buildCard(pies);
+
+
+ var buttonClick = (e) => {
+   const instructor = e.target.id 
+   const selectedPies = []
+   for (let i = 0; i < pies.length; i++) {
+     const leaflet = pies[i]
+     if (leaflet.instructor === instructor) {
+       selectedPies.push(leaflet)
+     }
+   }
+   buildCard(selectedPies)
+  }
+
+  document.getElementById('michael').addEventListener('click', buttonClick);
+  document.getElementById('zoe').addEventListener('click', buttonClick);
+  document.getElementById('callan').addEventListener('click', buttonClick);
+  document.getElementById('all').addEventListener('click', (e) => {
+    buildCard(pies)
+})
